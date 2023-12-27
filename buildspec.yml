@@ -1,0 +1,30 @@
+varsion: 0.2
+phases:
+  pre_build:
+    commands:
+    - echo logging in to Amazon ECR....
+    - aws --version
+    - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 835441862789.dkr.ecr.us-east-1.amazonaws.com
+    - REPOSITORY_URI=835441862789.dkr.ecr.us-east-1.amazonaws.com/spring-demo-ecr
+    - IMAGE_TAG=
+  build:
+    commands: 
+    - echo build started `date`
+    - echo build the jar file
+    - mvn clean install 
+    - echo builing the docker image 
+    - docker build -t $REPOSITORY_URL:latest .
+    - docker build $REPOSITORY_URL:lates $REPOSITORY_URL:$IMAGES_TAG
+  post_build:
+    commands: 
+    - echo Build compelete on `date`
+    - echo pushing to repo
+    - docker push $REPOSITORY_URI:latest
+    - docker push $REPOSITORY_URI:$IMAGE_TAG
+    - echo Writing image definitions file...
+    - 
+artifacts:
+  files:
+
+
+    
