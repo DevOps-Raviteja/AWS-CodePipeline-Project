@@ -1,1 +1,1 @@
-# AWS-CodePipeline-Project
+# AWS CodePipeline Project
